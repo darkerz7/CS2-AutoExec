@@ -1,0 +1,187 @@
+{
+	"_comment": "Types of triggers:",
+	"_comment": "- OnMapSpawn",
+	"_comment": "- OnMapEnd",
+	"_comment": "- OnRoundStartAlways",
+	"_comment": "- OnRoundStartWarmUp",
+	"_comment": "- OnRoundStartAfterWarmUp",
+	"_comment": "- OnRoundEndAlways",
+	"_comment": "- OnRoundEndWarmUp",
+	"_comment": "- OnRoundEndAfterWarmUp",
+	"OnMapSpawn" : [
+		{
+			"ShowInConsole": true,
+			"EntryInLog": true,
+			"Delay": 0.0,
+			"Commands":
+			[
+				"say [AutoExec] OnMapSpawn Triggered",
+				"sv_gravity 800"
+			]
+		},
+		{
+			"ShowInConsole": true,
+			"EntryInLog": true,
+			"Delay": 1.0,
+			"Commands":
+			[
+				"say [AutoExec] OnMapSpawn Triggered. Delay 1.0",
+				"sv_gravity 701"
+			]
+		}
+	],
+	"OnMapEnd" : [
+		{
+			"ShowInConsole": true,
+			"EntryInLog": true,
+			"Delay": 0.0,
+			"Commands":
+			[
+				"say [AutoExec] OnMapEnd Triggered",
+				"sv_gravity 802"
+			]
+		},
+		{
+			"ShowInConsole": true,
+			"EntryInLog": true,
+			"Delay": 1.0,
+			"Commands":
+			[
+				"say [AutoExec] OnMapEnd Triggered. Delay 1.0",
+				"sv_gravity 703"
+			]
+		}
+	],
+	"OnRoundStartAlways" : [
+		{
+			"ShowInConsole": true,
+			"EntryInLog": true,
+			"Delay": 0.0,
+			"Commands":
+			[
+				"say [AutoExec] OnRoundStartAlways Triggered",
+				"sv_gravity 804"
+			]
+		},
+		{
+			"ShowInConsole": true,
+			"EntryInLog": true,
+			"Delay": 1.0,
+			"Commands":
+			[
+				"say [AutoExec] OnRoundStartAlways Triggered. Delay 1.0",
+				"sv_gravity 705"
+			]
+		}
+	],
+	"OnRoundStartWarmUp" : [
+		{
+			"ShowInConsole": true,
+			"EntryInLog": true,
+			"Delay": 0.0,
+			"Commands":
+			[
+				"say [AutoExec] OnRoundStartWarmUp Triggered",
+				"sv_gravity 806"
+			]
+		},
+		{
+			"ShowInConsole": true,
+			"EntryInLog": true,
+			"Delay": 1.0,
+			"Commands":
+			[
+				"say [AutoExec] OnRoundStartWarmUp Triggered. Delay 1.0",
+				"sv_gravity 707"
+			]
+		}
+	],
+	"OnRoundStartAfterWarmUp" : [
+		{
+			"ShowInConsole": true,
+			"EntryInLog": true,
+			"Delay": 0.0,
+			"Commands":
+			[
+				"say [AutoExec] OnRoundStartAfterWarmUp Triggered",
+				"sv_gravity 808"
+			]
+		},
+		{
+			"ShowInConsole": true,
+			"EntryInLog": true,
+			"Delay": 1.0,
+			"Commands":
+			[
+				"say [AutoExec] OnRoundStartAfterWarmUp Triggered. Delay 1.0",
+				"sv_gravity 709"
+			]
+		}
+	],
+	"OnRoundEndAlways" : [
+		{
+			"ShowInConsole": true,
+			"EntryInLog": true,
+			"Delay": 0.0,
+			"Commands":
+			[
+				"say [AutoExec] OnRoundEndAlways Triggered",
+				"sv_gravity 810"
+			]
+		},
+		{
+			"ShowInConsole": true,
+			"EntryInLog": true,
+			"Delay": 1.0,
+			"Commands":
+			[
+				"say [AutoExec] OnRoundEndAlways Triggered. Delay 1.0",
+				"sv_gravity 711"
+			]
+		}
+	],
+	"OnRoundEndWarmUp" : [
+		{
+			"ShowInConsole": true,
+			"EntryInLog": true,
+			"Delay": 0.0,
+			"Commands":
+			[
+				"say [AutoExec] OnRoundEndWarmUp Triggered",
+				"sv_gravity 812"
+			]
+		},
+		{
+			"ShowInConsole": true,
+			"EntryInLog": true,
+			"Delay": 1.0,
+			"Commands":
+			[
+				"say [AutoExec] OnRoundEndWarmUp Triggered. Delay 1.0",
+				"sv_gravity 713"
+			]
+		}
+	],
+	"OnRoundEndAfterWarmUp" : [
+		{
+			"ShowInConsole": true,
+			"EntryInLog": true,
+			"Delay": 0.0,
+			"Commands":
+			[
+				"say [AutoExec] OnRoundEndAfterWarmUp Triggered",
+				"sv_gravity 814"
+			]
+		},
+		{
+			"ShowInConsole": true,
+			"EntryInLog": true,
+			"Delay": 1.0,
+			"Commands":
+			[
+				"say [AutoExec] OnRoundEndAfterWarmUp Triggered. Delay 1.0",
+				"sv_gravity 715"
+			]
+		}
+	]
+}
