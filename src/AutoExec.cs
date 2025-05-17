@@ -15,10 +15,11 @@ namespace CS2_AutoExec
 		static ILogger? g_Logger;
 		ConfigJSON? cfg = new();
 		ConfigJSON? cfgMap = new();
+		ConfigJSON? cfgPrefix = new();
 		public override string ModuleName => "Auto Exec";
 		public override string ModuleDescription => "Automatically executes commands after events";
 		public override string ModuleAuthor => "DarkerZ [RUS]";
-		public override string ModuleVersion => "1.DZ.1";
+		public override string ModuleVersion => "1.DZ.2";
 		public override void Load(bool hotReload)
 		{
 			g_Logger = Logger;
@@ -37,12 +38,15 @@ namespace CS2_AutoExec
 			RemoveCommand("css_ae_reload", OnReload);
 			cfg?.StopTimers();
 			cfgMap?.StopTimers();
+			cfgPrefix?.StopTimers();
 		}
 		void OnMapStart_Listener(string sMapName)
 		{
 			cfg?.OnMapSpawnHandler();
 			LoadCFGMap();
 			cfgMap?.OnMapSpawnHandler();
+			LoadCFGPrefix();
+			cfgPrefix?.OnMapSpawnHandler();
 		}
 		void OnMapEnd_Listener()
 		{
@@ -50,12 +54,16 @@ namespace CS2_AutoExec
 			cfgMap?.OnMapEndHandler();
 			cfgMap?.StopTimers();
 			cfgMap = null;
+			cfgPrefix?.OnMapEndHandler();
+			cfgPrefix?.StopTimers();
+			cfgPrefix = null;
 		}
 		[GameEventHandler]
 		private HookResult OnEventRoundStart(EventRoundStart @event, GameEventInfo info)
 		{
 			cfg?.OnRoundStartHandler();
 			cfgMap?.OnRoundStartHandler();
+			cfgPrefix?.OnRoundStartHandler();
 			return HookResult.Continue;
 		}
 		[GameEventHandler]
@@ -63,6 +71,7 @@ namespace CS2_AutoExec
 		{
 			cfg?.OnRoundEndHandler();
 			cfgMap?.OnRoundEndHandler();
+			cfgPrefix?.OnRoundEndHandler();
 			return HookResult.Continue;
 		}
 
@@ -73,10 +82,13 @@ namespace CS2_AutoExec
 			if (player != null && !player.IsValid) return;
 			cfg?.StopTimers();
 			cfgMap?.StopTimers();
+			cfgPrefix?.StopTimers();
 			cfg = null;
 			cfgMap = null;
+			cfgPrefix = null;
 			LoadCFG();
 			LoadCFGMap();
+			LoadCFGPrefix();
 			if (cfg != null)
 			{
 				if (player != null)
@@ -95,7 +107,21 @@ namespace CS2_AutoExec
 				}
 				else PrintToConsole($"ConfigFile for map {Server.MapName.ToLower()} reloaded!");
 			}
-			if (cfg == null && cfgMap == null)
+			if (cfgPrefix != null)
+			{
+				int iIndex = Server.MapName.ToLower().IndexOf('_');
+				if (iIndex > 0)
+				{
+					string sPrefix = Server.MapName.ToLower()[..iIndex];
+					if (player != null)
+					{
+						command.ReplyToCommand($" \x0B[\x04 AutoExec \x0B]\x01 ConfigFile for prefix {sPrefix} reloaded!");
+						PrintToConsole($"ConfigFile for prefix {sPrefix} reloaded by {player.PlayerName} ({player.SteamID})");
+					}
+					else PrintToConsole($"ConfigFile for prefix {sPrefix} reloaded!");
+				}
+			}
+			if (cfg == null && cfgMap == null && cfgPrefix == null)
 			{
 				if (player != null)
 					command.ReplyToCommand(" \x0B[\x04 AutoExec \x0B]\x01 Bad ConfigFiles!");
@@ -145,6 +171,36 @@ namespace CS2_AutoExec
 			else
 			{
 				cfgMap = null;
+				PrintToConsole($"Config file ({sConfig}) not found");
+			}
+		}
+		void LoadCFGPrefix()
+		{
+			int iIndex = Server.MapName.ToLower().IndexOf('_');
+			if (iIndex <= 0)
+			{
+				cfgPrefix = null;
+				return;
+			}
+			string sPrefix = Server.MapName.ToLower()[..iIndex];
+			string sConfig = $"{Path.Join(ModuleDirectory, $"/prefix/{sPrefix}.json")}";
+			string sData;
+			if (File.Exists(sConfig))
+			{
+				try
+				{
+					sData = File.ReadAllText(sConfig);
+					cfgPrefix = JsonSerializer.Deserialize<ConfigJSON>(sData);
+				}
+				catch
+				{
+					cfgPrefix = null;
+					PrintToConsole($"Bad Config file ({sConfig})");
+				}
+			}
+			else
+			{
+				cfgPrefix = null;
 				PrintToConsole($"Config file ({sConfig}) not found");
 			}
 		}
