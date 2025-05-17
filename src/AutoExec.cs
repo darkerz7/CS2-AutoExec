@@ -14,12 +14,12 @@ namespace CS2_AutoExec
 	{
 		static ILogger? g_Logger;
 		ConfigJSON? cfg = new();
-		ConfigJSON? cfgMap = new();
 		ConfigJSON? cfgPrefix = new();
+		ConfigJSON? cfgMap = new();
 		public override string ModuleName => "Auto Exec";
 		public override string ModuleDescription => "Automatically executes commands after events";
 		public override string ModuleAuthor => "DarkerZ [RUS]";
-		public override string ModuleVersion => "1.DZ.2";
+		public override string ModuleVersion => "1.DZ.2.1";
 		public override void Load(bool hotReload)
 		{
 			g_Logger = Logger;
@@ -37,41 +37,41 @@ namespace CS2_AutoExec
 			DeregisterEventHandler<EventRoundEnd>(OnEventRoundEnd);
 			RemoveCommand("css_ae_reload", OnReload);
 			cfg?.StopTimers();
-			cfgMap?.StopTimers();
 			cfgPrefix?.StopTimers();
+			cfgMap?.StopTimers();
 		}
 		void OnMapStart_Listener(string sMapName)
 		{
 			cfg?.OnMapSpawnHandler();
-			LoadCFGMap();
-			cfgMap?.OnMapSpawnHandler();
 			LoadCFGPrefix();
 			cfgPrefix?.OnMapSpawnHandler();
+			LoadCFGMap();
+			cfgMap?.OnMapSpawnHandler();
 		}
 		void OnMapEnd_Listener()
 		{
 			cfg?.OnMapEndHandler();
-			cfgMap?.OnMapEndHandler();
-			cfgMap?.StopTimers();
-			cfgMap = null;
 			cfgPrefix?.OnMapEndHandler();
 			cfgPrefix?.StopTimers();
 			cfgPrefix = null;
+			cfgMap?.OnMapEndHandler();
+			cfgMap?.StopTimers();
+			cfgMap = null;
 		}
 		[GameEventHandler]
 		private HookResult OnEventRoundStart(EventRoundStart @event, GameEventInfo info)
 		{
 			cfg?.OnRoundStartHandler();
-			cfgMap?.OnRoundStartHandler();
 			cfgPrefix?.OnRoundStartHandler();
+			cfgMap?.OnRoundStartHandler();
 			return HookResult.Continue;
 		}
 		[GameEventHandler]
 		private HookResult OnEventRoundEnd(EventRoundEnd @event, GameEventInfo info)
 		{
 			cfg?.OnRoundEndHandler();
-			cfgMap?.OnRoundEndHandler();
 			cfgPrefix?.OnRoundEndHandler();
+			cfgMap?.OnRoundEndHandler();
 			return HookResult.Continue;
 		}
 
@@ -81,14 +81,14 @@ namespace CS2_AutoExec
 		{
 			if (player != null && !player.IsValid) return;
 			cfg?.StopTimers();
-			cfgMap?.StopTimers();
 			cfgPrefix?.StopTimers();
+			cfgMap?.StopTimers();
 			cfg = null;
-			cfgMap = null;
 			cfgPrefix = null;
+			cfgMap = null;
 			LoadCFG();
-			LoadCFGMap();
 			LoadCFGPrefix();
+			LoadCFGMap();
 			if (cfg != null)
 			{
 				if (player != null)
@@ -97,15 +97,6 @@ namespace CS2_AutoExec
 					PrintToConsole($"Global ConfigFile reloaded by {player.PlayerName} ({player.SteamID})");
 				}
 				else PrintToConsole($"Global ConfigFile reloaded!");
-			}
-			if (cfgMap != null)
-			{
-				if (player != null)
-				{
-					command.ReplyToCommand($" \x0B[\x04 AutoExec \x0B]\x01 ConfigFile for map {Server.MapName.ToLower()} reloaded!");
-					PrintToConsole($"ConfigFile for map {Server.MapName.ToLower()} reloaded by {player.PlayerName} ({player.SteamID})");
-				}
-				else PrintToConsole($"ConfigFile for map {Server.MapName.ToLower()} reloaded!");
 			}
 			if (cfgPrefix != null)
 			{
@@ -120,6 +111,15 @@ namespace CS2_AutoExec
 					}
 					else PrintToConsole($"ConfigFile for prefix {sPrefix} reloaded!");
 				}
+			}
+			if (cfgMap != null)
+			{
+				if (player != null)
+				{
+					command.ReplyToCommand($" \x0B[\x04 AutoExec \x0B]\x01 ConfigFile for map {Server.MapName.ToLower()} reloaded!");
+					PrintToConsole($"ConfigFile for map {Server.MapName.ToLower()} reloaded by {player.PlayerName} ({player.SteamID})");
+				}
+				else PrintToConsole($"ConfigFile for map {Server.MapName.ToLower()} reloaded!");
 			}
 			if (cfg == null && cfgMap == null && cfgPrefix == null)
 			{
