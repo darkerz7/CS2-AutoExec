@@ -1,0 +1,44 @@
+{
+	"_comment": "Types of triggers:",
+	"_comment": "- OnMapSpawn",
+	"_comment": "- OnMapEnd",
+	"_comment": "- OnRoundStartAlways",
+	"_comment": "- OnRoundStartWarmUp",
+	"_comment": "- OnRoundStartAfterWarmUp",
+	"_comment": "- OnRoundEndAlways",
+	"_comment": "- OnRoundEndWarmUp",
+	"_comment": "- OnRoundEndAfterWarmUp",
+	"OnMapSpawn" : [
+		{
+			"ShowInConsole": true,
+			"EntryInLog": false,
+			"Delay": 0.0,
+			"Commands":
+			[
+				"say [AutoExec] Config for de_dust2. OnMapSpawn Triggered"
+			]
+		}
+	],
+	"OnMapEnd" : [
+		{
+			"ShowInConsole": true,
+			"EntryInLog": false,
+			"Delay": 0.0,
+			"Commands":
+			[
+				"say [AutoExec] Config for de_dust2. OnMapEnd Triggered"
+			]
+		}
+	],
+	"OnRoundStartAlways" : [
+		{
+			"ShowInConsole": true,
+			"EntryInLog": false,
+			"Delay": 0.0,
+			"Commands":
+			[
+				"say [AutoExec] Config for de_dust2. OnRoundStartAlways Triggered"
+			]
+		}
+	]
+}
