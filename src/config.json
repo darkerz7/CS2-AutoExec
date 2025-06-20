@@ -1,20 +1,21 @@
 {
 	"_comment": "Types of triggers:",
-	"_comment": "- OnMapSpawn",
-	"_comment": "- OnMapEnd",
-	"_comment": "- OnRoundStartAlways",
-	"_comment": "- OnRoundStartWarmUp",
-	"_comment": "- OnRoundStartAfterWarmUp",
-	"_comment": "- OnRoundEndAlways",
-	"_comment": "- OnRoundEndWarmUp",
-	"_comment": "- OnRoundEndAfterWarmUp",
-	"OnMapSpawn" : [
+	"_comment1": "- OnMapSpawn",
+	"_comment2": "- OnMapEnd",
+	"_comment3": "- OnRoundStartAlways",
+	"_comment4": "- OnRoundStartWarmUp",
+	"_comment5": "- OnRoundStartAfterWarmUp",
+	"_comment6": "- OnRoundEndAlways",
+	"_comment7": "- OnRoundEndWarmUp",
+	"_comment8": "- OnRoundEndAfterWarmUp",
+	"_comment9": "- OnHalfTime",
+	"_comment0": "- OnHalfTimeEnd",
+	"OnMapSpawn": [
 		{
 			"ShowInConsole": true,
 			"EntryInLog": true,
 			"Delay": 0.0,
-			"Commands":
-			[
+			"Commands": [
 				"say [AutoExec] OnMapSpawn Triggered",
 				"sv_gravity 800"
 			]
@@ -23,20 +24,18 @@
 			"ShowInConsole": true,
 			"EntryInLog": true,
 			"Delay": 1.0,
-			"Commands":
-			[
+			"Commands": [
 				"say [AutoExec] OnMapSpawn Triggered. Delay 1.0",
 				"sv_gravity 701"
 			]
 		}
 	],
-	"OnMapEnd" : [
+	"OnMapEnd": [
 		{
 			"ShowInConsole": true,
 			"EntryInLog": true,
 			"Delay": 0.0,
-			"Commands":
-			[
+			"Commands": [
 				"say [AutoExec] OnMapEnd Triggered",
 				"sv_gravity 802"
 			]
@@ -45,20 +44,18 @@
 			"ShowInConsole": true,
 			"EntryInLog": true,
 			"Delay": 1.0,
-			"Commands":
-			[
+			"Commands": [
 				"say [AutoExec] OnMapEnd Triggered. Delay 1.0",
 				"sv_gravity 703"
 			]
 		}
 	],
-	"OnRoundStartAlways" : [
+	"OnRoundStartAlways": [
 		{
 			"ShowInConsole": true,
 			"EntryInLog": true,
 			"Delay": 0.0,
-			"Commands":
-			[
+			"Commands": [
 				"say [AutoExec] OnRoundStartAlways Triggered",
 				"sv_gravity 804"
 			]
@@ -67,20 +64,18 @@
 			"ShowInConsole": true,
 			"EntryInLog": true,
 			"Delay": 1.0,
-			"Commands":
-			[
+			"Commands": [
 				"say [AutoExec] OnRoundStartAlways Triggered. Delay 1.0",
 				"sv_gravity 705"
 			]
 		}
 	],
-	"OnRoundStartWarmUp" : [
+	"OnRoundStartWarmUp": [
 		{
 			"ShowInConsole": true,
 			"EntryInLog": true,
 			"Delay": 0.0,
-			"Commands":
-			[
+			"Commands": [
 				"say [AutoExec] OnRoundStartWarmUp Triggered",
 				"sv_gravity 806"
 			]
@@ -89,20 +84,18 @@
 			"ShowInConsole": true,
 			"EntryInLog": true,
 			"Delay": 1.0,
-			"Commands":
-			[
+			"Commands": [
 				"say [AutoExec] OnRoundStartWarmUp Triggered. Delay 1.0",
 				"sv_gravity 707"
 			]
 		}
 	],
-	"OnRoundStartAfterWarmUp" : [
+	"OnRoundStartAfterWarmUp": [
 		{
 			"ShowInConsole": true,
 			"EntryInLog": true,
 			"Delay": 0.0,
-			"Commands":
-			[
+			"Commands": [
 				"say [AutoExec] OnRoundStartAfterWarmUp Triggered",
 				"sv_gravity 808"
 			]
@@ -111,20 +104,18 @@
 			"ShowInConsole": true,
 			"EntryInLog": true,
 			"Delay": 1.0,
-			"Commands":
-			[
+			"Commands": [
 				"say [AutoExec] OnRoundStartAfterWarmUp Triggered. Delay 1.0",
 				"sv_gravity 709"
 			]
 		}
 	],
-	"OnRoundEndAlways" : [
+	"OnRoundEndAlways": [
 		{
 			"ShowInConsole": true,
 			"EntryInLog": true,
 			"Delay": 0.0,
-			"Commands":
-			[
+			"Commands": [
 				"say [AutoExec] OnRoundEndAlways Triggered",
 				"sv_gravity 810"
 			]
@@ -133,20 +124,18 @@
 			"ShowInConsole": true,
 			"EntryInLog": true,
 			"Delay": 1.0,
-			"Commands":
-			[
+			"Commands": [
 				"say [AutoExec] OnRoundEndAlways Triggered. Delay 1.0",
 				"sv_gravity 711"
 			]
 		}
 	],
-	"OnRoundEndWarmUp" : [
+	"OnRoundEndWarmUp": [
 		{
 			"ShowInConsole": true,
 			"EntryInLog": true,
 			"Delay": 0.0,
-			"Commands":
-			[
+			"Commands": [
 				"say [AutoExec] OnRoundEndWarmUp Triggered",
 				"sv_gravity 812"
 			]
@@ -155,20 +144,18 @@
 			"ShowInConsole": true,
 			"EntryInLog": true,
 			"Delay": 1.0,
-			"Commands":
-			[
+			"Commands": [
 				"say [AutoExec] OnRoundEndWarmUp Triggered. Delay 1.0",
 				"sv_gravity 713"
 			]
 		}
 	],
-	"OnRoundEndAfterWarmUp" : [
+	"OnRoundEndAfterWarmUp": [
 		{
 			"ShowInConsole": true,
 			"EntryInLog": true,
 			"Delay": 0.0,
-			"Commands":
-			[
+			"Commands": [
 				"say [AutoExec] OnRoundEndAfterWarmUp Triggered",
 				"sv_gravity 814"
 			]
@@ -177,10 +164,49 @@
 			"ShowInConsole": true,
 			"EntryInLog": true,
 			"Delay": 1.0,
-			"Commands":
-			[
+			"Commands": [
 				"say [AutoExec] OnRoundEndAfterWarmUp Triggered. Delay 1.0",
 				"sv_gravity 715"
+			]
+		}
+	],
+	"OnHalfTime": [
+		{
+			"ShowInConsole": true,
+			"EntryInLog": true,
+			"Delay": 0.0,
+			"Commands": [
+				"say [AutoExec] OnHalfTime Triggered",
+				"sv_gravity 816"
+			]
+		},
+		{
+			"ShowInConsole": true,
+			"EntryInLog": true,
+			"Delay": 1.0,
+			"Commands": [
+				"say [AutoExec] OnHalfTime Triggered. Delay 1.0",
+				"sv_gravity 717"
+			]
+		}
+	],
+	"OnHalfTimeEnd": [
+		{
+			"ShowInConsole": true,
+			"EntryInLog": true,
+			"Delay": 0.0,
+			"Commands": [
+				"say [AutoExec] OnHalfTimeEnd Triggered",
+				"sv_gravity 818"
+			]
+		},
+		{
+			"ShowInConsole": true,
+			"EntryInLog": true,
+			"Delay": 1.0,
+			"Commands": [
+				"say [AutoExec] OnHalfTimeEnd Triggered. Delay 1.0",
+				"sv_gravity 719"
 			]
 		}
 	]

@@ -3,6 +3,7 @@ using CounterStrikeSharp.API.Core;
 using CounterStrikeSharp.API.Core.Attributes.Registration;
 using CounterStrikeSharp.API.Modules.Admin;
 using CounterStrikeSharp.API.Modules.Commands;
+using CounterStrikeSharp.API.Modules.Cvars;
 using CounterStrikeSharp.API.Modules.Timers;
 using Microsoft.Extensions.Logging;
 using System.Text.Json;
@@ -16,10 +17,11 @@ namespace CS2_AutoExec
 		ConfigJSON? cfg = new();
 		ConfigJSON? cfgPrefix = new();
 		ConfigJSON? cfgMap = new();
+		static bool bHalfTime = false;
 		public override string ModuleName => "Auto Exec";
 		public override string ModuleDescription => "Automatically executes commands after events";
 		public override string ModuleAuthor => "DarkerZ [RUS]";
-		public override string ModuleVersion => "1.DZ.2.1";
+		public override string ModuleVersion => "1.DZ.3";
 		public override void Load(bool hotReload)
 		{
 			g_Logger = Logger;
@@ -215,6 +217,8 @@ namespace CS2_AutoExec
 			public List<EventInfo> OnRoundEndAlways { get; set; }
 			public List<EventInfo> OnRoundEndWarmUp { get; set; }
 			public List<EventInfo> OnRoundEndAfterWarmUp { get; set; }
+			public List<EventInfo> OnHalfTime { get; set; }
+			public List<EventInfo> OnHalfTimeEnd { get; set; }
 			public void OnMapSpawnHandler()
 			{
 				StopTimers();
@@ -226,6 +230,7 @@ namespace CS2_AutoExec
 				KillAllTimers(OnRoundStartAlways);
 				KillAllTimers(OnRoundStartWarmUp);
 				KillAllTimers(OnRoundStartAfterWarmUp);
+				KillAllTimers(OnHalfTime);
 
 				foreach (EventInfo e in OnMapEnd) e.EventInfoHandler();
 			}
@@ -234,22 +239,30 @@ namespace CS2_AutoExec
 				KillAllTimers(OnRoundEndAlways);
 				KillAllTimers(OnRoundEndWarmUp);
 				KillAllTimers(OnRoundEndAfterWarmUp);
+				KillAllTimers(OnHalfTimeEnd);
 
 				foreach (EventInfo e in OnRoundStartAlways) e.EventInfoHandler();
 
 				if (IsWarmup()) foreach (EventInfo e in OnRoundStartWarmUp) e.EventInfoHandler();
 				else foreach (EventInfo e in OnRoundStartAfterWarmUp) e.EventInfoHandler();
+
+				bHalfTime = IsHalfTime();
+				if (bHalfTime) foreach (EventInfo e in OnHalfTime) e.EventInfoHandler();
 			}
 			public void OnRoundEndHandler()
 			{
 				KillAllTimers(OnRoundStartAlways);
 				KillAllTimers(OnRoundStartWarmUp);
 				KillAllTimers(OnRoundStartAfterWarmUp);
+				KillAllTimers(OnHalfTime);
 
 				foreach (EventInfo e in OnRoundEndAlways) e.EventInfoHandler();
 
 				if (IsWarmup()) foreach (EventInfo e in OnRoundEndWarmUp) e.EventInfoHandler();
 				else foreach (EventInfo e in OnRoundEndAfterWarmUp) e.EventInfoHandler();
+
+				if (bHalfTime) foreach (EventInfo e in OnHalfTimeEnd) e.EventInfoHandler();
+				bHalfTime = false;
 			}
 			public void StopTimers()
 			{
@@ -261,6 +274,8 @@ namespace CS2_AutoExec
 				KillAllTimers(OnRoundEndAlways);
 				KillAllTimers(OnRoundEndWarmUp);
 				KillAllTimers(OnRoundEndAfterWarmUp);
+				KillAllTimers(OnHalfTime);
+				KillAllTimers(OnHalfTimeEnd);
 			}
 			static void KillAllTimers(List<EventInfo> ListEventInfo)
 			{
@@ -276,6 +291,8 @@ namespace CS2_AutoExec
 				OnRoundEndAlways = [];
 				OnRoundEndWarmUp = [];
 				OnRoundEndAfterWarmUp = [];
+				OnHalfTime = [];
+				OnHalfTimeEnd = [];
 			}
 			~ConfigJSON()
 			{
@@ -287,6 +304,8 @@ namespace CS2_AutoExec
 				OnRoundEndAlways.Clear();
 				OnRoundEndWarmUp.Clear();
 				OnRoundEndAfterWarmUp.Clear();
+				OnHalfTime.Clear();
+				OnHalfTimeEnd.Clear();
 			}
 		}
 		class EventInfo
@@ -366,6 +385,15 @@ namespace CS2_AutoExec
 		static bool IsWarmup()
 		{
 			return GetGameRules()?.WarmupPeriod ?? false;
+		}
+		static bool IsHalfTime()
+		{
+			var gamerules = GetGameRules();
+			var halftime = ConVar.Find("mp_halftime")!.GetPrimitiveValue<bool>();
+			var maxrounds = ConVar.Find("mp_maxrounds")!.GetPrimitiveValue<int>();
+
+			if (gamerules == null || maxrounds <= 0) return false;
+			return gamerules.TotalRoundsPlayed == 0 || (halftime && maxrounds / 2 == gamerules.TotalRoundsPlayed) || gamerules.GameRestart;
 		}
 		static void PrintToConsole(string sValue)
 		{

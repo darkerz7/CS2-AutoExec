@@ -1,42 +1,41 @@
 {
 	"_comment": "Types of triggers:",
-	"_comment": "- OnMapSpawn",
-	"_comment": "- OnMapEnd",
-	"_comment": "- OnRoundStartAlways",
-	"_comment": "- OnRoundStartWarmUp",
-	"_comment": "- OnRoundStartAfterWarmUp",
-	"_comment": "- OnRoundEndAlways",
-	"_comment": "- OnRoundEndWarmUp",
-	"_comment": "- OnRoundEndAfterWarmUp",
-	"OnMapSpawn" : [
+	"_comment1": "- OnMapSpawn",
+	"_comment2": "- OnMapEnd",
+	"_comment3": "- OnRoundStartAlways",
+	"_comment4": "- OnRoundStartWarmUp",
+	"_comment5": "- OnRoundStartAfterWarmUp",
+	"_comment6": "- OnRoundEndAlways",
+	"_comment7": "- OnRoundEndWarmUp",
+	"_comment8": "- OnRoundEndAfterWarmUp",
+	"_comment9": "- OnHalfTime",
+	"_comment0": "- OnHalfTimeEnd",
+	"OnMapSpawn": [
 		{
 			"ShowInConsole": true,
 			"EntryInLog": false,
 			"Delay": 0.0,
-			"Commands":
-			[
+			"Commands": [
 				"say [AutoExec] Config for prefix de. OnMapSpawn Triggered"
 			]
 		}
 	],
-	"OnMapEnd" : [
+	"OnMapEnd": [
 		{
 			"ShowInConsole": true,
 			"EntryInLog": false,
 			"Delay": 0.0,
-			"Commands":
-			[
+			"Commands": [
 				"say [AutoExec] Config for prefix de. OnMapEnd Triggered"
 			]
 		}
 	],
-	"OnRoundStartAlways" : [
+	"OnRoundStartAlways": [
 		{
 			"ShowInConsole": true,
 			"EntryInLog": false,
 			"Delay": 0.0,
-			"Commands":
-			[
+			"Commands": [
 				"say [AutoExec] Config for prefix de. OnRoundStartAlways Triggered"
 			]
 		}
