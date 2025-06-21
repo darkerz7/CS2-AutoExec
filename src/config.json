@@ -1,19 +1,23 @@
 {
 	"_comment": "Types of triggers:",
-	"_comment1": "- OnMapSpawn",
-	"_comment2": "- OnMapEnd",
-	"_comment3": "- OnRoundStartAlways",
-	"_comment4": "- OnRoundStartWarmUp",
-	"_comment5": "- OnRoundStartAfterWarmUp",
-	"_comment6": "- OnRoundEndAlways",
-	"_comment7": "- OnRoundEndWarmUp",
-	"_comment8": "- OnRoundEndAfterWarmUp",
-	"_comment9": "- OnHalfTime",
-	"_comment0": "- OnHalfTimeEnd",
-	"_comment+": "- OnNotHalfTime",
-	"_comment-": "- OnNotHalfTimeEnd",
-	"_comment*": "- OnPreHalfTime",
-	"_comment/": "- OnPreHalfTimeEnd",
+	"_comment01": "- OnMapSpawn",
+	"_comment02": "- OnMapEnd",
+	"_comment03": "- OnRoundStartAlways",
+	"_comment04": "- OnRoundStartWarmUp",
+	"_comment05": "- OnRoundStartAfterWarmUp",
+	"_comment06": "- OnRoundEndAlways",
+	"_comment07": "- OnRoundEndWarmUp",
+	"_comment08": "- OnRoundEndAfterWarmUp",
+	"_comment09": "- OnHalfTime",
+	"_comment10": "- OnHalfTimeEnd",
+	"_comment11": "- OnNotHalfTime",
+	"_comment12": "- OnNotHalfTimeEnd",
+	"_comment13": "- OnPreHalfTime",
+	"_comment14": "- OnPreHalfTimeEnd",
+	"_comment15": "- OnRoundPrestart",
+	"_comment16": "- OnHalfTimePrestart",
+	"_comment17": "- OnNotHalfTimePrestart",
+	"_comment18": "- OnPreHalfTimePrestart",
 	"OnMapSpawn": [
 		{
 			"ShowInConsole": true,
@@ -291,6 +295,86 @@
 			"Commands": [
 				"say [AutoExec] OnPreHalfTimeEnd Triggered. Delay 1.0",
 				"sv_gravity 727"
+			]
+		}
+	],
+	"OnRoundPrestart": [
+		{
+			"ShowInConsole": true,
+			"EntryInLog": true,
+			"Delay": 0.0,
+			"Commands": [
+				"say [AutoExec] OnRoundPrestart Triggered",
+				"sv_gravity 828"
+			]
+		},
+		{
+			"ShowInConsole": true,
+			"EntryInLog": true,
+			"Delay": 1.0,
+			"Commands": [
+				"say [AutoExec] OnRoundPrestart Triggered. Delay 1.0",
+				"sv_gravity 729"
+			]
+		}
+	],
+	"OnHalfTimePrestart": [
+		{
+			"ShowInConsole": true,
+			"EntryInLog": true,
+			"Delay": 0.0,
+			"Commands": [
+				"say [AutoExec] OnHalfTimePrestart Triggered",
+				"sv_gravity 830"
+			]
+		},
+		{
+			"ShowInConsole": true,
+			"EntryInLog": true,
+			"Delay": 1.0,
+			"Commands": [
+				"say [AutoExec] OnHalfTimePrestart Triggered. Delay 1.0",
+				"sv_gravity 731"
+			]
+		}
+	],
+	"OnNotHalfTimePrestart": [
+		{
+			"ShowInConsole": true,
+			"EntryInLog": true,
+			"Delay": 0.0,
+			"Commands": [
+				"say [AutoExec] OnNotHalfTimePrestart Triggered",
+				"sv_gravity 832"
+			]
+		},
+		{
+			"ShowInConsole": true,
+			"EntryInLog": true,
+			"Delay": 1.0,
+			"Commands": [
+				"say [AutoExec] OnNotHalfTimePrestart Triggered. Delay 1.0",
+				"sv_gravity 733"
+			]
+		}
+	],
+	"OnPreHalfTimePrestart": [
+		{
+			"ShowInConsole": true,
+			"EntryInLog": true,
+			"Delay": 0.0,
+			"Commands": [
+				"say [AutoExec] OnPreHalfTimePrestart Triggered",
+				"sv_gravity 834"
+			]
+		},
+		{
+			"ShowInConsole": true,
+			"EntryInLog": true,
+			"Delay": 1.0,
+			"Commands": [
+				"say [AutoExec] OnPreHalfTimePrestart Triggered. Delay 1.0",
+				"sv_gravity 735"
 			]
 		}
 	]

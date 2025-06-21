@@ -22,7 +22,7 @@ namespace CS2_AutoExec
 		public override string ModuleName => "Auto Exec";
 		public override string ModuleDescription => "Automatically executes commands after events";
 		public override string ModuleAuthor => "DarkerZ [RUS]";
-		public override string ModuleVersion => "1.DZ.3.2";
+		public override string ModuleVersion => "1.DZ.4";
 		public override void Load(bool hotReload)
 		{
 			g_Logger = Logger;
@@ -31,7 +31,9 @@ namespace CS2_AutoExec
 			RegisterListener<OnMapEnd>(OnMapEnd_Listener);
 			RegisterEventHandler<EventRoundStart>(OnEventRoundStart);
 			RegisterEventHandler<EventRoundEnd>(OnEventRoundEnd);
+			RegisterEventHandler<EventRoundPrestart>(OnEventRoundPrestart);
 		}
+
 		public override void Unload(bool hotReload)
 		{
 			RemoveListener<OnMapStart>(OnMapStart_Listener);
@@ -75,6 +77,14 @@ namespace CS2_AutoExec
 			cfg?.OnRoundEndHandler();
 			cfgPrefix?.OnRoundEndHandler();
 			cfgMap?.OnRoundEndHandler();
+			return HookResult.Continue;
+		}
+		[GameEventHandler]
+		private HookResult OnEventRoundPrestart(EventRoundPrestart @event, GameEventInfo info)
+		{
+			cfg?.OnRoundPrestartHandler();
+			cfgPrefix?.OnRoundPrestartHandler();
+			cfgMap?.OnRoundPrestartHandler();
 			return HookResult.Continue;
 		}
 
@@ -215,15 +225,19 @@ namespace CS2_AutoExec
 			public List<EventInfo> OnRoundStartAlways { get; set; }
 			public List<EventInfo> OnRoundStartWarmUp { get; set; }
 			public List<EventInfo> OnRoundStartAfterWarmUp { get; set; }
+			public List<EventInfo> OnRoundPrestart { get; set; }
 			public List<EventInfo> OnRoundEndAlways { get; set; }
 			public List<EventInfo> OnRoundEndWarmUp { get; set; }
 			public List<EventInfo> OnRoundEndAfterWarmUp { get; set; }
 			public List<EventInfo> OnHalfTime { get; set; }
 			public List<EventInfo> OnHalfTimeEnd { get; set; }
+			public List<EventInfo> OnHalfTimePrestart { get; set; }
 			public List<EventInfo> OnNotHalfTime { get; set; }
 			public List<EventInfo> OnNotHalfTimeEnd { get; set; }
+			public List<EventInfo> OnNotHalfTimePrestart { get; set; }
 			public List<EventInfo> OnPreHalfTime { get; set; }
 			public List<EventInfo> OnPreHalfTimeEnd { get; set; }
+			public List<EventInfo> OnPreHalfTimePrestart { get; set; }
 			public void OnMapSpawnHandler()
 			{
 				StopTimers();
@@ -238,6 +252,10 @@ namespace CS2_AutoExec
 				KillAllTimers(OnHalfTime);
 				KillAllTimers(OnNotHalfTime);
 				KillAllTimers(OnPreHalfTime);
+				KillAllTimers(OnRoundPrestart);
+				KillAllTimers(OnHalfTimePrestart);
+				KillAllTimers(OnNotHalfTimePrestart);
+				KillAllTimers(OnPreHalfTimePrestart);
 
 				foreach (EventInfo e in OnMapEnd) e.EventInfoHandler();
 			}
@@ -270,6 +288,10 @@ namespace CS2_AutoExec
 				KillAllTimers(OnHalfTime);
 				KillAllTimers(OnNotHalfTime);
 				KillAllTimers(OnPreHalfTime);
+				KillAllTimers(OnRoundPrestart);
+				KillAllTimers(OnHalfTimePrestart);
+				KillAllTimers(OnNotHalfTimePrestart);
+				KillAllTimers(OnPreHalfTimePrestart);
 
 				foreach (EventInfo e in OnRoundEndAlways) e.EventInfoHandler();
 
@@ -282,6 +304,15 @@ namespace CS2_AutoExec
 
 				if (bPreHalfTime) foreach (EventInfo e in OnPreHalfTimeEnd) e.EventInfoHandler();
 				bPreHalfTime = false;
+			}
+			public void OnRoundPrestartHandler()
+			{
+				foreach (EventInfo e in OnRoundPrestart) e.EventInfoHandler();
+
+				if (IsHalfTime()) foreach (EventInfo e in OnHalfTimePrestart) e.EventInfoHandler();
+				else foreach (EventInfo e in OnNotHalfTimePrestart) e.EventInfoHandler();
+
+				if (IsPreHalfTime()) foreach (EventInfo e in OnPreHalfTimePrestart) e.EventInfoHandler();
 			}
 			public void StopTimers()
 			{
@@ -299,6 +330,10 @@ namespace CS2_AutoExec
 				KillAllTimers(OnNotHalfTimeEnd);
 				KillAllTimers(OnPreHalfTime);
 				KillAllTimers(OnPreHalfTimeEnd);
+				KillAllTimers(OnRoundPrestart);
+				KillAllTimers(OnHalfTimePrestart);
+				KillAllTimers(OnNotHalfTimePrestart);
+				KillAllTimers(OnPreHalfTimePrestart);
 			}
 			static void KillAllTimers(List<EventInfo> ListEventInfo)
 			{
@@ -320,6 +355,10 @@ namespace CS2_AutoExec
 				OnNotHalfTimeEnd = [];
 				OnPreHalfTime = [];
 				OnPreHalfTimeEnd = [];
+				OnRoundPrestart = [];
+				OnHalfTimePrestart = [];
+				OnNotHalfTimePrestart = [];
+				OnPreHalfTimePrestart = [];
 			}
 			~ConfigJSON()
 			{
@@ -337,6 +376,10 @@ namespace CS2_AutoExec
 				OnNotHalfTimeEnd.Clear();
 				OnPreHalfTime.Clear();
 				OnPreHalfTimeEnd.Clear();
+				OnRoundPrestart.Clear();
+				OnHalfTimePrestart.Clear();
+				OnNotHalfTimePrestart.Clear();
+				OnPreHalfTimePrestart.Clear();
 			}
 		}
 		class EventInfo
