@@ -10,6 +10,8 @@
 	"_comment8": "- OnRoundEndAfterWarmUp",
 	"_comment9": "- OnHalfTime",
 	"_comment0": "- OnHalfTimeEnd",
+	"_comment+": "- OnNotHalfTime",
+	"_comment-": "- OnNotHalfTimeEnd",
 	"OnMapSpawn": [
 		{
 			"ShowInConsole": true,
