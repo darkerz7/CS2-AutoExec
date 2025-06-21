@@ -12,6 +12,8 @@
 	"_comment0": "- OnHalfTimeEnd",
 	"_comment+": "- OnNotHalfTime",
 	"_comment-": "- OnNotHalfTimeEnd",
+	"_comment*": "- OnPreHalfTime",
+	"_comment/": "- OnPreHalfTimeEnd",
 	"OnMapSpawn": [
 		{
 			"ShowInConsole": true,
@@ -249,6 +251,46 @@
 			"Commands": [
 				"say [AutoExec] OnNotHalfTimeEnd Triggered. Delay 1.0",
 				"sv_gravity 723"
+			]
+		}
+	],
+	"OnPreHalfTime": [
+		{
+			"ShowInConsole": true,
+			"EntryInLog": true,
+			"Delay": 0.0,
+			"Commands": [
+				"say [AutoExec] OnPreHalfTime Triggered",
+				"sv_gravity 824"
+			]
+		},
+		{
+			"ShowInConsole": true,
+			"EntryInLog": true,
+			"Delay": 1.0,
+			"Commands": [
+				"say [AutoExec] OnPreHalfTime Triggered. Delay 1.0",
+				"sv_gravity 725"
+			]
+		}
+	],
+	"OnPreHalfTimeEnd": [
+		{
+			"ShowInConsole": true,
+			"EntryInLog": true,
+			"Delay": 0.0,
+			"Commands": [
+				"say [AutoExec] OnPreHalfTimeEnd Triggered",
+				"sv_gravity 826"
+			]
+		},
+		{
+			"ShowInConsole": true,
+			"EntryInLog": true,
+			"Delay": 1.0,
+			"Commands": [
+				"say [AutoExec] OnPreHalfTimeEnd Triggered. Delay 1.0",
+				"sv_gravity 727"
 			]
 		}
 	]

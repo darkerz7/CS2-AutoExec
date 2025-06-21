@@ -12,6 +12,8 @@
 	"_comment0": "- OnHalfTimeEnd",
 	"_comment+": "- OnNotHalfTime",
 	"_comment-": "- OnNotHalfTimeEnd",
+	"_comment*": "- OnPreHalfTime",
+	"_comment/": "- OnPreHalfTimeEnd",
 	"OnMapSpawn": [
 		{
 			"ShowInConsole": true,

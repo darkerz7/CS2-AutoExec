@@ -18,10 +18,11 @@ namespace CS2_AutoExec
 		ConfigJSON? cfgPrefix = new();
 		ConfigJSON? cfgMap = new();
 		static bool bHalfTime = false;
+		static bool bPreHalfTime = false;
 		public override string ModuleName => "Auto Exec";
 		public override string ModuleDescription => "Automatically executes commands after events";
 		public override string ModuleAuthor => "DarkerZ [RUS]";
-		public override string ModuleVersion => "1.DZ.3.1";
+		public override string ModuleVersion => "1.DZ.3.2";
 		public override void Load(bool hotReload)
 		{
 			g_Logger = Logger;
@@ -221,6 +222,8 @@ namespace CS2_AutoExec
 			public List<EventInfo> OnHalfTimeEnd { get; set; }
 			public List<EventInfo> OnNotHalfTime { get; set; }
 			public List<EventInfo> OnNotHalfTimeEnd { get; set; }
+			public List<EventInfo> OnPreHalfTime { get; set; }
+			public List<EventInfo> OnPreHalfTimeEnd { get; set; }
 			public void OnMapSpawnHandler()
 			{
 				StopTimers();
@@ -234,6 +237,7 @@ namespace CS2_AutoExec
 				KillAllTimers(OnRoundStartAfterWarmUp);
 				KillAllTimers(OnHalfTime);
 				KillAllTimers(OnNotHalfTime);
+				KillAllTimers(OnPreHalfTime);
 
 				foreach (EventInfo e in OnMapEnd) e.EventInfoHandler();
 			}
@@ -244,6 +248,7 @@ namespace CS2_AutoExec
 				KillAllTimers(OnRoundEndAfterWarmUp);
 				KillAllTimers(OnHalfTimeEnd);
 				KillAllTimers(OnNotHalfTimeEnd);
+				KillAllTimers(OnPreHalfTimeEnd);
 
 				foreach (EventInfo e in OnRoundStartAlways) e.EventInfoHandler();
 
@@ -253,6 +258,9 @@ namespace CS2_AutoExec
 				bHalfTime = IsHalfTime();
 				if (bHalfTime) foreach (EventInfo e in OnHalfTime) e.EventInfoHandler();
 				else foreach (EventInfo e in OnNotHalfTime) e.EventInfoHandler();
+
+				bPreHalfTime = IsPreHalfTime();
+				if (bPreHalfTime) foreach (EventInfo e in OnPreHalfTime) e.EventInfoHandler();
 			}
 			public void OnRoundEndHandler()
 			{
@@ -261,6 +269,7 @@ namespace CS2_AutoExec
 				KillAllTimers(OnRoundStartAfterWarmUp);
 				KillAllTimers(OnHalfTime);
 				KillAllTimers(OnNotHalfTime);
+				KillAllTimers(OnPreHalfTime);
 
 				foreach (EventInfo e in OnRoundEndAlways) e.EventInfoHandler();
 
@@ -270,6 +279,9 @@ namespace CS2_AutoExec
 				if (bHalfTime) foreach (EventInfo e in OnHalfTimeEnd) e.EventInfoHandler();
 				else foreach (EventInfo e in OnNotHalfTimeEnd) e.EventInfoHandler();
 				bHalfTime = false;
+
+				if (bPreHalfTime) foreach (EventInfo e in OnPreHalfTimeEnd) e.EventInfoHandler();
+				bPreHalfTime = false;
 			}
 			public void StopTimers()
 			{
@@ -285,6 +297,8 @@ namespace CS2_AutoExec
 				KillAllTimers(OnHalfTimeEnd);
 				KillAllTimers(OnNotHalfTime);
 				KillAllTimers(OnNotHalfTimeEnd);
+				KillAllTimers(OnPreHalfTime);
+				KillAllTimers(OnPreHalfTimeEnd);
 			}
 			static void KillAllTimers(List<EventInfo> ListEventInfo)
 			{
@@ -304,6 +318,8 @@ namespace CS2_AutoExec
 				OnHalfTimeEnd = [];
 				OnNotHalfTime = [];
 				OnNotHalfTimeEnd = [];
+				OnPreHalfTime = [];
+				OnPreHalfTimeEnd = [];
 			}
 			~ConfigJSON()
 			{
@@ -319,6 +335,8 @@ namespace CS2_AutoExec
 				OnHalfTimeEnd.Clear();
 				OnNotHalfTime.Clear();
 				OnNotHalfTimeEnd.Clear();
+				OnPreHalfTime.Clear();
+				OnPreHalfTimeEnd.Clear();
 			}
 		}
 		class EventInfo
@@ -385,15 +403,7 @@ namespace CS2_AutoExec
 		}
 		static CCSGameRules? GetGameRules()
 		{
-			try
-			{
-				var gameRulesEntities = Utilities.FindAllEntitiesByDesignerName<CCSGameRulesProxy>("cs_gamerules");
-				return gameRulesEntities.First().GameRules;
-			}
-			catch (Exception)
-			{
-				return null;
-			}
+			return Utilities.FindAllEntitiesByDesignerName<CCSGameRulesProxy>("cs_gamerules").FirstOrDefault()?.GameRules;
 		}
 		static bool IsWarmup()
 		{
@@ -402,11 +412,18 @@ namespace CS2_AutoExec
 		static bool IsHalfTime()
 		{
 			var gamerules = GetGameRules();
-			var halftime = ConVar.Find("mp_halftime")!.GetPrimitiveValue<bool>();
 			var maxrounds = ConVar.Find("mp_maxrounds")!.GetPrimitiveValue<int>();
 
 			if (gamerules == null || maxrounds <= 0) return false;
-			return gamerules.TotalRoundsPlayed == 0 || (halftime && maxrounds / 2 == gamerules.TotalRoundsPlayed) || gamerules.GameRestart;
+			return gamerules.TotalRoundsPlayed == 0 || (ConVar.Find("mp_halftime")!.GetPrimitiveValue<bool>() && maxrounds / 2 == gamerules.TotalRoundsPlayed) || gamerules.GameRestart;
+		}
+		static bool IsPreHalfTime()
+		{
+			var gamerules = GetGameRules();
+			var maxrounds = ConVar.Find("mp_maxrounds")!.GetPrimitiveValue<int>();
+
+			if (gamerules == null || maxrounds <= 0) return false;
+			return ConVar.Find("mp_halftime")!.GetPrimitiveValue<bool>() && maxrounds / 2 == gamerules.TotalRoundsPlayed - 1;
 		}
 		static void PrintToConsole(string sValue)
 		{
