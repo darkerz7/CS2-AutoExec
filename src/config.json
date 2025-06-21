@@ -211,5 +211,45 @@
 				"sv_gravity 719"
 			]
 		}
+	],
+	"OnNotHalfTime": [
+		{
+			"ShowInConsole": true,
+			"EntryInLog": true,
+			"Delay": 0.0,
+			"Commands": [
+				"say [AutoExec] OnNotHalfTime Triggered",
+				"sv_gravity 820"
+			]
+		},
+		{
+			"ShowInConsole": true,
+			"EntryInLog": true,
+			"Delay": 1.0,
+			"Commands": [
+				"say [AutoExec] OnNotHalfTime Triggered. Delay 1.0",
+				"sv_gravity 721"
+			]
+		}
+	],
+	"OnNotHalfTimeEnd": [
+		{
+			"ShowInConsole": true,
+			"EntryInLog": true,
+			"Delay": 0.0,
+			"Commands": [
+				"say [AutoExec] OnNotHalfTimeEnd Triggered",
+				"sv_gravity 822"
+			]
+		},
+		{
+			"ShowInConsole": true,
+			"EntryInLog": true,
+			"Delay": 1.0,
+			"Commands": [
+				"say [AutoExec] OnNotHalfTimeEnd Triggered. Delay 1.0",
+				"sv_gravity 723"
+			]
+		}
 	]
 }
