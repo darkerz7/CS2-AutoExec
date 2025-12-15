@@ -22,7 +22,7 @@ namespace CS2_AutoExec
 		public override string ModuleName => "Auto Exec";
 		public override string ModuleDescription => "Automatically executes commands after events";
 		public override string ModuleAuthor => "DarkerZ [RUS]";
-		public override string ModuleVersion => "1.DZ.4";
+		public override string ModuleVersion => "1.DZ.4.1";
 		public override void Load(bool hotReload)
 		{
 			g_Logger = Logger;
@@ -408,7 +408,7 @@ namespace CS2_AutoExec
 			}
 			void ExecCommands()
 			{
-				Server.NextFrame(() =>
+				Server.NextWorldUpdate(() =>
 				{
 					if (IsValid())
 					{
